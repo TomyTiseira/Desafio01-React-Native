@@ -1,9 +1,11 @@
-import { Alert, Pressable, StyleSheet, Text, View, Modal } from 'react-native'
-import React from 'react'
+import { Alert, Pressable, StyleSheet, Text, View, Modal } from 'react-native';
+import React from 'react';
+import colors from '../constants/colors';
 
 const ModalDelete = ({ isVisible, actionDeleteItem, actionCancelModal }) => {
   return (
     <Modal animationType='fade' transparent={true} visible={isVisible} onRequestClose={() => {
+        actionCancelModal();
         Alert.alert('Modal se ha cerrado.');
     }}>
         <View style={styles.centeredView}>
@@ -20,7 +22,7 @@ const ModalDelete = ({ isVisible, actionDeleteItem, actionCancelModal }) => {
             </View>
         </View>
     </Modal>
-  )
+  );
 }
 
 export default ModalDelete;
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     containerModal: {
         borderRadius: 15,
         padding: 10,
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
     },
     containerButtons: {
         flexDirection: "row",
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     buttonEliminar: {
-        backgroundColor: "#D22B2B",
+        backgroundColor: colors.buttonDelete,
         height: 50,
         width: 80,
         justifyContent: "center",
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     buttonCancelar: {
-        backgroundColor: "#0047AB",
+        backgroundColor: colors.buttonCancel,
         height: 50,
         width: 80,
         justifyContent: "center",
