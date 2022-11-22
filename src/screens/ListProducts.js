@@ -1,10 +1,10 @@
-import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import colors from '../constants/colors';
 import ModalDelete from '../components/ModalDelete';
 import Card from '../components/Card';
 
-const ListProducts = ({onStartDetails}) => {
+const ListProducts = ({navigation}) => {
     const [ product, setProduct ] = useState('');
     const [ listProducts, setListProducts ] = useState([]);
     const [ modalVisible, setModalVisible ] = useState(false);
@@ -30,9 +30,10 @@ const ListProducts = ({onStartDetails}) => {
                 <TouchableOpacity onPress={() => selectedItemDelete(item.id)} >
                     <Text style={styles.buttonDelete}>Eliminar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => selectedItemDetails(item.id)} >
+                {/* <TouchableOpacity onPress={() => selectedItemDetails(item.id)} >
                     <Text style={styles.buttonDetails}>Detalles</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Button title='Detalles' onPress={() => handleDetails(item.id)}/>
             </View>
         </Card>
     );
@@ -50,9 +51,12 @@ const ListProducts = ({onStartDetails}) => {
         setModalVisible(false);
     }
 
-    const selectedItemDetails = (id) => {
+    const handleDetails = (id) => {
         setItemSelected(listProducts.find(item => item.id === id));
-        onStartDetails({itemSelected});
+        navigation.navigate('Detalles', {
+            id: itemSelected.id,
+            name: itemSelected.name,
+        });
     }
 
     return (

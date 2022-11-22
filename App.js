@@ -1,39 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { useState } from 'react';
-import colors from './constants/colors';
+import colors from './src/constants/colors';
 import { useFonts } from 'expo-font';
-import ListProducts from './screens/ListProducts';
-import DetailsProduct from './screens/DetailsProduct';
-import Header from './components/Header';
+import ProductNavigation from './src/navegation/ProductNavigation';
 
 export default function App() {
   const [ loaded ] = useFonts({
-    Roboto: require('./assets/fonts/Roboto-Light.ttf'),
+    Roboto: require('./src/assets/fonts/Roboto-Light.ttf'),
   });
 
-  const [ selectedProduct, setSelectedProduct ] = useState({})
+  // let content = <ListProducts onStartDetails={handleStartDetails}/>
 
-  const handleStartDetails = ({itemSelected}) => {
-    setSelectedProduct(itemSelected)
-  }
-
-  let content = <ListProducts onStartDetails={handleStartDetails}/>
-
-  if(selectedProduct.id) {
-    content = <DetailsProduct selectedProduct={selectedProduct}/>
-  }
+  // if(selectedProduct.id) {
+  //   content = <DetailsProduct selectedProduct={selectedProduct}/>
+  // }
 
   if(!loaded) {
     return null;
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto"/>
-      <Header title={'Coff-fe'} newStyles={{fontFamily: 'Roboto'}}/>
-      {content}
-    </View>
+    // <View style={styles.container}>
+    //   <StatusBar style="auto"/>
+    //   <Header title={'Coff-fe'} newStyles={{fontFamily: 'Roboto'}}/>
+    //   {content}
+    // </View>
+    <ProductNavigation/>
   );
 }
 
