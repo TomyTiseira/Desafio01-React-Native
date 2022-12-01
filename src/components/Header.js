@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   headerTitle: {
-    fontSize: 30,
+    fontSize: 33,
     fontFamily: "Roboto",
+    fontWeight: "bold",
   },
 });

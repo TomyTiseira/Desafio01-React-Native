@@ -17,7 +17,7 @@ const CartScreen = () => {
   const total = 120;
 
   const handleConfirmCart = () => {
-    console.log("Confirmar carrito");
+    // console.log("Confirmar carrito");
   };
 
   const handleSelectedProduct = (id) => {

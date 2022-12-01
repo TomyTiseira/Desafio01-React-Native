@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Header from "../components/Header";
 import colors from "../constants/colors";
 
 const DetailsProduct = ({ navigation, route }) => {
-  const { name, price, description, id, category } = route.params;
+  const { name, price, description, id, category, image } = route.params;
 
   const handleAddCart = () => {
     const product = {
@@ -20,10 +20,19 @@ const DetailsProduct = ({ navigation, route }) => {
     <View style={styles.container}>
       <View style={styles.datailsContainer}>
         <Header title={"Detalle del producto"} />
-        <Text style={styles.text}>{name}</Text>
+        <Text style={styles.title}>{name}</Text>
+        <Image source={image} style={styles.image} />
         <View style={styles.details}>
-          <Text style={styles.text}>Precio: ${price}</Text>
-          <Text style={styles.text}>Descripción: {description}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ ...styles.text, textDecorationLine: "underline" }}>
+              Precio:
+            </Text>
+            <Text style={{ ...styles.text, paddingLeft: 5 }}>${price}</Text>
+          </View>
+          <Text style={{ ...styles.text, textDecorationLine: "underline" }}>
+            Descripción:
+          </Text>
+          <Text style={styles.text}>{description}</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
@@ -72,6 +81,10 @@ const styles = StyleSheet.create({
     elevation: 3,
     borderRadius: 20,
   },
+  title: {
+    marginTop: 10,
+    fontSize: 25,
+  },
   text: {
     marginTop: 5,
     fontSize: 20,
@@ -91,5 +104,11 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: "row",
+  },
+  image: {
+    borderRadius: 50,
+    height: 100,
+    width: 100,
+    marginTop: 12,
   },
 });

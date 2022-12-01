@@ -8,7 +8,7 @@ const CategoryItem = ({ item, onSelected }) => {
         style={styles.container}
         onPress={() => onSelected(item)}
       >
-        {/* <Image source={require(item.image)} /> */}
+        <Image source={item.image} style={styles.image} />
         <View>
           <Text style={styles.title}>{item.name}</Text>
         </View>
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: "row",
     borderRadius: 6,
     shadowColor: "#000",
     shadowOpacity: 0.5,
@@ -37,11 +38,17 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 6,
     elevation: 3,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
     padding: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontFamily: "Roboto",
+    fontSize: 20,
+    paddingLeft: 25,
+  },
+  image: {
+    height: "80%",
+    width: "60%",
   },
 });
