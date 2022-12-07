@@ -2,37 +2,32 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Header from "../components/Header";
 import colors from "../constants/colors";
+import { useSelector, connect } from "react-redux";
 
-const DetailsProduct = ({ navigation, route }) => {
-  const { name, price, description, id, category, image } = route.params;
+const DetailsProduct = ({ navigation }) => {
+  const product = useSelector((state) => state.products.selected);
 
-  const handleAddCart = () => {
-    const product = {
-      name,
-      price,
-      id,
-      description,
-      category,
-    };
-  };
+  const handleAddCart = () => {};
 
   return (
     <View style={styles.container}>
       <View style={styles.datailsContainer}>
         <Header title={"Detalle del producto"} />
-        <Text style={styles.title}>{name}</Text>
-        <Image source={image} style={styles.image} />
+        <Text style={styles.title}>{product.name}</Text>
+        <Image source={product.image} style={styles.image} />
         <View style={styles.details}>
           <View style={{ flexDirection: "row" }}>
             <Text style={{ ...styles.text, textDecorationLine: "underline" }}>
               Precio:
             </Text>
-            <Text style={{ ...styles.text, paddingLeft: 5 }}>${price}</Text>
+            <Text style={{ ...styles.text, paddingLeft: 5 }}>
+              ${product.price}
+            </Text>
           </View>
           <Text style={{ ...styles.text, textDecorationLine: "underline" }}>
             Descripción:
           </Text>
-          <Text style={styles.text}>{description}</Text>
+          <Text style={styles.text}>{product.description}</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
@@ -57,13 +52,12 @@ const DetailsProduct = ({ navigation, route }) => {
   );
 };
 
-export default DetailsProduct;
+export default connect()(DetailsProduct);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "ccc",
-    // marginTop: -500,
   },
   datailsContainer: {
     alignItems: "center",

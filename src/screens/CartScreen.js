@@ -16,9 +16,7 @@ const CartScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const total = 120;
 
-  const handleConfirmCart = () => {
-    // console.log("Confirmar carrito");
-  };
+  const handleConfirmCart = () => {};
 
   const handleSelectedProduct = (id) => {
     setItemSelected(cart.find((item) => item.id === id));

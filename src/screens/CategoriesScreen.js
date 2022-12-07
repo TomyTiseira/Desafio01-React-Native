@@ -1,12 +1,16 @@
 import { FlatList } from "react-native";
 import React from "react";
 import CategoryItem from "../components/CategoryItem";
-import { CATEGORIES } from "../data/categories";
+import { selectedCategory } from "../store/actions/category.action";
+import { useSelector, useDispatch, connect } from "react-redux";
 
 const CategoriesScreen = ({ navigation }) => {
+  const categories = useSelector((state) => state.categories.categories);
+  const dispatch = useDispatch();
+
   const handleSelectedCategory = (item) => {
+    dispatch(selectedCategory(item.id));
     navigation.navigate("Products", {
-      categoryId: item.id,
       name: item.name,
     });
   };
@@ -17,11 +21,11 @@ const CategoriesScreen = ({ navigation }) => {
 
   return (
     <FlatList
-      data={CATEGORIES}
+      data={categories}
       keyExtractor={(item) => item.id}
       renderItem={renderCategoryItem}
     />
   );
 };
 
-export default CategoriesScreen;
+export default connect()(CategoriesScreen);

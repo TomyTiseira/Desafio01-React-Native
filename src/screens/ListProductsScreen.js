@@ -1,22 +1,25 @@
 import { FlatList } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import ProductItem from "../components/ProductItem";
-import { PRODUCTS } from "../data/products";
+import { useSelector, useDispatch, connect } from "react-redux";
+import {
+  filteredProduct,
+  selectProduct,
+} from "../store/actions/product.action";
 
-const ListProducts = ({ navigation, route }) => {
-  const { categoryId } = route.params;
-  const products = PRODUCTS.filter(
-    (product) => product.category === categoryId
-  );
+const ListProducts = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.filteredProducts);
+  const category = useSelector((state) => state.categories.selected);
+
+  useEffect(() => {
+    dispatch(filteredProduct(category.id));
+  }, []);
 
   const handleSelectedProduct = (item) => {
+    dispatch(selectProduct(item.id));
     navigation.navigate("Details", {
-      id: item.id,
       name: item.name,
-      price: item.price,
-      description: item.description,
-      category: item.category,
-      image: item.image,
     });
   };
 
@@ -34,4 +37,4 @@ const ListProducts = ({ navigation, route }) => {
   );
 };
 
-export default ListProducts;
+export default connect()(ListProducts);
