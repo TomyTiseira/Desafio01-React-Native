@@ -7,64 +7,104 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import CartItem from "../components/CartItem";
-import { CART } from "../data/cart";
-import Modal from "../components/ModalDelete";
+import { useSelector, useDispatch, connect } from "react-redux";
+import { confirmCart, removeProduct } from "../store/actions/cart.action";
+import ModalConfirmCart from "../components/ModalConfirmCart";
+import ModalDelete from "../components/ModalDelete";
 
-const CartScreen = () => {
-  const [cart, setCart] = useState(CART);
+const CartScreen = ({ navigation }) => {
+  const productsInCart = useSelector((state) => state.cart.cart);
+  const total = useSelector((state) => state.cart.total).toFixed(2);
+
+  const dispatch = useDispatch();
+
   const [itemSelected, setItemSelected] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
-  const total = 120;
+  const [modalVisibleDelete, setModalVisibleDelete] = useState(false);
+  const [modalVisibleConfirm, setModalVisibleConfirm] = useState(false);
 
-  const handleConfirmCart = () => {};
+  const handleConfirmCart = () => {
+    dispatch(confirmCart(productsInCart, total));
+    setModalVisibleConfirm(false);
+  };
+
+  const handleSelectCartConfirm = () => {
+    setModalVisibleConfirm(true);
+  };
 
   const handleSelectedProduct = (id) => {
-    setItemSelected(cart.find((item) => item.id === id));
-    setModalVisible(true);
+    setItemSelected(productsInCart.find((item) => item.id === id));
+    setModalVisibleDelete(true);
   };
 
-  const handleDeleteItem = (id) => {
-    setCart(cart.filter((item) => item.id !== itemSelected.id));
+  const handleDeleteItem = () => {
+    dispatch(removeProduct(itemSelected.id));
     setItemSelected({});
-    setModalVisible(false);
+    setModalVisibleDelete(false);
   };
 
-  const cancelModal = () => {
-    setModalVisible(false);
+  const cancelModalDelete = () => {
+    setModalVisibleDelete(false);
+  };
+
+  const cancelModalConfirm = () => {
+    setModalVisibleConfirm(false);
   };
 
   const renderCartItem = ({ item }) => (
     <CartItem item={item} onDelete={() => handleSelectedProduct(item.id)} />
   );
 
+  // If the cart is empty it is executed.
+  if (productsInCart.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}>No hay elementos en el carrito.</Text>
+        <TouchableOpacity
+          style={styles.confirm}
+          onPress={() => navigation.navigate("Categories")}
+        >
+          <Text style={styles.text}>Ir a comprar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.list}>
         <FlatList
-          data={cart}
+          data={productsInCart}
           keyExtractor={(item) => item.id}
           renderItem={renderCartItem}
         />
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.confirm} onPress={handleConfirmCart}>
+        <TouchableOpacity
+          style={styles.confirm}
+          onPress={handleSelectCartConfirm}
+        >
           <Text style={styles.text}>Confirmar</Text>
-          <View style={styles.total}>
-            <Text style={styles.text}>Total</Text>
-            <Text style={styles.text}>{total}</Text>
-          </View>
         </TouchableOpacity>
+        <View style={styles.total}>
+          <Text style={styles.text}>Total</Text>
+          <Text style={styles.text}>${total}</Text>
+        </View>
       </View>
-      <Modal
-        isVisible={modalVisible}
+      <ModalDelete
+        isVisible={modalVisibleDelete}
         actionDeleteItem={handleDeleteItem}
-        actionCancelModal={cancelModal}
+        actionCancelModal={cancelModalDelete}
+      />
+      <ModalConfirmCart
+        isVisible={modalVisibleConfirm}
+        actionConfirmCart={handleConfirmCart}
+        actionCancelModal={cancelModalConfirm}
       />
     </View>
   );
 };
 
-export default CartScreen;
+export default connect()(CartScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -80,14 +120,14 @@ const styles = StyleSheet.create({
     padding: 12,
     borderTopColor: "#ccc",
     borderTopWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   confirm: {
     backgroundColor: "#ccc",
     borderRadius: 10,
     padding: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   total: {
     flexDirection: "row",

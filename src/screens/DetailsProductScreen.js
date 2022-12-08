@@ -1,13 +1,28 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import colors from "../constants/colors";
-import { useSelector, connect } from "react-redux";
+import { useSelector, connect, useDispatch } from "react-redux";
+import { productAdd } from "../store/actions/cart.action";
+import ItemCount from "../components/ItemCount";
 
 const DetailsProduct = ({ navigation }) => {
   const product = useSelector((state) => state.products.selected);
+  const dispatch = useDispatch();
 
-  const handleAddCart = () => {};
+  const [goToCart, setgoToCart] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+
+  const onAdd = (quantity) => {
+    setgoToCart(true);
+    setQuantity(quantity);
+    // Añadir un state que guarda la cantidad.
+  };
+
+  const handleAddCart = () => {
+    dispatch(productAdd(product, quantity));
+    navigation.popToTop();
+  };
 
   return (
     <View style={styles.container}>
@@ -29,24 +44,33 @@ const DetailsProduct = ({ navigation }) => {
           </Text>
           <Text style={styles.text}>{product.description}</Text>
         </View>
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            style={{
-              ...styles.button,
-              backgroundColor: colors.buttonCancel,
-              marginRight: 10,
-            }}
-            onPress={() => handleAddCart()}
-          >
-            <Text style={{ color: "#fff" }}>Agregar a carrito</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.popToTop()}
-          >
-            <Text style={{ color: "#fff" }}>Volver al inicio</Text>
-          </TouchableOpacity>
-        </View>
+        {goToCart ? (
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={{
+                ...styles.button,
+                backgroundColor: colors.buttonCancel,
+                marginRight: 10,
+              }}
+              onPress={() => handleAddCart()}
+            >
+              <Text style={{ color: "#fff" }}>Confirmar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.popToTop()}
+            >
+              <Text style={{ color: "#fff" }}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <ItemCount
+            initial={1}
+            stock={5}
+            onAdd={onAdd}
+            cancelAddProduct={() => navigation.popToTop()}
+          />
+        )}
       </View>
     </View>
   );
@@ -94,7 +118,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   buttonsContainer: {
     flexDirection: "row",
