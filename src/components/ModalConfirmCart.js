@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   buttonConfirmar: {
-    backgroundColor: colors.buttonDelete,
+    backgroundColor: colors.buttonCancel,
     height: 50,
     width: 80,
     justifyContent: "center",
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   buttonCancelar: {
-    backgroundColor: colors.buttonCancel,
+    backgroundColor: colors.buttonDelete,
     height: 50,
     width: 80,
     justifyContent: "center",

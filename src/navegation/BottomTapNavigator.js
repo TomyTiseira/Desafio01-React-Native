@@ -4,6 +4,7 @@ import { StyleSheet, View, Text } from "react-native";
 import IonIcons from "@expo/vector-icons/Ionicons";
 import ProductNavigation from "./ProductNavigation";
 import CartNavigator from "./CartNavigator";
+import ImageNavigator from "./ImageNavigator";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -38,6 +39,18 @@ const BottomTapNavigator = () => {
               <View style={styles.item}>
                 <IonIcons name="cart" size={20} color="black" />
                 <Text>Carrito</Text>
+              </View>
+            ),
+          }}
+        />
+        <BottomTabs.Screen
+          name="ImageTap"
+          component={ImageNavigator}
+          options={{
+            tabBarIcon: ({ focus }) => (
+              <View style={styles.item}>
+                <IonIcons name="camera" size={20} color="black" />
+                <Text>Fotos</Text>
               </View>
             ),
           }}
