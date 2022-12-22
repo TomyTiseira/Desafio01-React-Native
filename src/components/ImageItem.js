@@ -2,18 +2,18 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import colors from "../constants/colors";
 
-const PlaceItem = ({ title, image, onSelect }) => {
+const ImageItem = ({ item, onSelect }) => {
   return (
-    <TouchableOpacity onPress={onSelect} style={styles.placeItem}>
-      <Image style={styles.image} source={{ uri: image }} />
+    <TouchableOpacity onPress={() => onSelect(item)} style={styles.placeItem}>
+      <Image style={styles.image} source={{ uri: item.image }} />
       <View style={styles.info}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{item.title}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default PlaceItem;
+export default ImageItem;
 
 const styles = StyleSheet.create({
   placeItem: {

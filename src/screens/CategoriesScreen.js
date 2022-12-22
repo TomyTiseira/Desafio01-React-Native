@@ -3,8 +3,10 @@ import React from "react";
 import CategoryItem from "../components/CategoryItem";
 import { selectedCategory } from "../store/actions/category.action";
 import { useSelector, useDispatch, connect } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
-const CategoriesScreen = ({ navigation }) => {
+const CategoriesScreen = () => {
+  const navigation = useNavigation();
   const categories = useSelector((state) => state.categories.categories);
   const dispatch = useDispatch();
 

@@ -3,25 +3,22 @@ import { FlatList } from "react-native";
 import ImageItem from "../components/ImageItem";
 import { useSelector, connect, useDispatch } from "react-redux";
 import { selectImage } from "../store/actions/image.action";
+import { useNavigation } from "@react-navigation/native";
 
-const ImageListScreen = ({ navigation }) => {
+const ImageListScreen = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const images = useSelector((state) => state.images.images);
 
   const handleSelectedImage = (item) => {
     dispatch(selectImage(item.id));
-    console.log(item);
     navigation.navigate("Details", {
-      name: item.name,
+      title: item.title,
     });
   };
 
   const renderItem = ({ item }) => (
-    <ImageItem
-      title={item.title}
-      image={item.image}
-      onSelect={handleSelectedImage}
-    />
+    <ImageItem item={item} onSelect={handleSelectedImage} />
   );
 
   return (

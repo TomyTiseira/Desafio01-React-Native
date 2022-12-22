@@ -6,8 +6,10 @@ import {
   filteredProduct,
   selectProduct,
 } from "../store/actions/product.action";
+import { useNavigation } from "@react-navigation/native";
 
-const ListProducts = ({ navigation }) => {
+const ListProducts = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.filteredProducts);
   const category = useSelector((state) => state.categories.selected);

@@ -23,7 +23,6 @@ const ImageReducer = (state = initialState, action) => {
       const selected = state.images.find(
         (image) => image.id === action.imageID
       );
-      console.log(selected);
       return {
         ...state,
         selected,

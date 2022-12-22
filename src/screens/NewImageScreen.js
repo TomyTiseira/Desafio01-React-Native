@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   View,
@@ -11,7 +12,8 @@ import { connect, useDispatch } from "react-redux";
 import ImageSelector from "../components/ImageSelector";
 import { addImage } from "../store/actions/image.action";
 
-const NewImageScreen = ({ navigation }) => {
+const NewImageScreen = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
 

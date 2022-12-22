@@ -1,19 +1,28 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { useSelector, connect, useDispatch } from "react-redux";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useSelector, connect } from "react-redux";
 import Header from "../components/Header";
 import colors from "../constants/colors";
 
 const ImageDetailScreen = () => {
+  const navigation = useNavigation();
   const image = useSelector((state) => state.images.selected);
-  console.log(image);
 
   return (
     <View style={styles.container}>
       <View style={styles.datailsContainer}>
         <Header title={"Detalle de la Imagen"} />
-        {/* <Text style={styles.title}>{product.name}</Text>
-        <Image source={product.image} style={styles.image} /> */}
+        <Text style={styles.title}>{image.title}</Text>
+        <Image style={styles.image} source={{ uri: image.image }} />
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.popToTop()}
+          >
+            <Text style={{ color: "#fff" }}>Confirmar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -44,25 +53,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 25,
   },
-  text: {
-    marginTop: 5,
-    fontSize: 20,
-  },
-  details: {
-    padding: 15,
-    flexDirection: "column",
-    marginHorizontal: 12,
-  },
   button: {
-    backgroundColor: colors.buttonDelete,
+    backgroundColor: colors.buttonCancel,
     borderRadius: 10,
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 12,
   },
   buttonsContainer: {
     flexDirection: "row",
+  },
+  image: {
+    borderRadius: 65,
+    height: 130,
+    width: 130,
+    marginTop: 12,
   },
 });
 

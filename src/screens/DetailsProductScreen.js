@@ -5,8 +5,10 @@ import colors from "../constants/colors";
 import { useSelector, connect, useDispatch } from "react-redux";
 import { productAdd } from "../store/actions/cart.action";
 import ItemCount from "../components/ItemCount";
+import { useNavigation } from "@react-navigation/native";
 
-const DetailsProduct = ({ navigation }) => {
+const DetailsProduct = () => {
+  const navigation = useNavigation();
   const product = useSelector((state) => state.products.selected);
   const dispatch = useDispatch();
 

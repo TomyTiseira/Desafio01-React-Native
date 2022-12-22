@@ -11,8 +11,10 @@ import { useSelector, useDispatch, connect } from "react-redux";
 import { confirmCart, removeProduct } from "../store/actions/cart.action";
 import ModalConfirmCart from "../components/ModalConfirmCart";
 import ModalDelete from "../components/ModalDelete";
+import { useNavigation } from "@react-navigation/native";
 
-const CartScreen = ({ navigation }) => {
+const CartScreen = () => {
+  const navigation = useNavigation();
   const productsInCart = useSelector((state) => state.cart.cart);
   const total = useSelector((state) => state.cart.total).toFixed(2);
 
