@@ -55,3 +55,11 @@ A partir de la app en desarrollo, crear paso a paso las funcionalidades:
 
 - Configurar e integrar redux.
 - Manejo del estado de la aplicación.
+
+### Device Features
+
+Continuando con el proyecto, integrar una interfaz o característica del dispositivo, recomendaciones location o camera.
+
+- Integrar características del dispositivo (location o camera).
+- Aplicar los permisos correspondientes.
+- Manejar el caso de permisos negados.
