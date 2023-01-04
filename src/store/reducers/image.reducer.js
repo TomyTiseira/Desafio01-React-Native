@@ -1,4 +1,4 @@
-import { ADD_IMAGE, SELECT_IMAGE } from "../actions/image.action";
+import { ADD_IMAGE, LOAD_IMAGES, SELECT_IMAGE } from "../actions/image.action";
 import Image from "../../models/Image";
 
 const initialState = {
@@ -26,6 +26,13 @@ const ImageReducer = (state = initialState, action) => {
       return {
         ...state,
         selected,
+      };
+    case LOAD_IMAGES:
+      return {
+        ...state,
+        images: action.images.map(
+          (image) => new Image(image.id, image.title, image.image)
+        ),
       };
     default:
       return state;
