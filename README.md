@@ -63,3 +63,21 @@ Continuando con el proyecto, integrar una interfaz o característica del disposi
 - Integrar características del dispositivo (location o camera).
 - Aplicar los permisos correspondientes.
 - Manejar el caso de permisos negados.
+
+### SQLite
+
+Integrar sincronización offline:
+
+- Integrar SQLite para sincronización offline.
+
+### Proyecto final
+
+Aspectos a incluir:
+
+- Lista optimizada y componentes reutilizables.
+- Navegación.
+- Manejo de estado.
+- Conexión con API.
+- Interfaz de dispositivo (ejemplo: location, cámara, galería de fotos).
+- Persistencia de datos.
+- Configuración de publicación (ícono, splash, y permisos).
