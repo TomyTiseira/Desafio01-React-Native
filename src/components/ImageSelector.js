@@ -55,7 +55,7 @@ const ImageSelector = ({ onImage }) => {
             <Image style={styles.image} source={{ uri: pickedUri }} />
           </View>
           <Button
-            title="Tomar Foto"
+            title="Guardar foto"
             color={colors.buttonCancel}
             onPress={saveImage}
           />
